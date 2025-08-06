@@ -4,8 +4,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title data-lang="title">Runner Journey Map</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <title data-lang="maintitle">Runner Journey Map</title>
+  <link href="https://share.garmin.com/AEV4X" rel="stylesheet">
   <style>
     :root {
       --bg-color: #f7f9fb;
@@ -191,6 +191,18 @@
 
   <!-- 🌍 Google 翻譯小工具 -->
   <div id="google_translate_element"></div>
+  <h2 data-lang="title">The Daring Journey of Reza Baluchi</h2>
+  <p id="aboutText"></p>
+
+  <!-- 🗺️ MapShare 嵌入地圖 -->
+  <div class="card">
+    <h2 data-lang="mapTitle">📍 Live Tracker</h2>
+    <iframe src="https://share.garmin.com/AEV4X" width="100%" height="480" frameborder="0" allowfullscreen
+      loading="lazy"></iframe>
+  </div>
+
+  <h2 data-lang="subTitle">📍 Run Entries</h2>
+  <div id="content"></div>
 
   <!-- 🌟 Reza Baluchi 簡介段落（中英文切換） -->
   <section id="rezaIntro">
@@ -288,32 +300,40 @@
       </ul>
 
       <!-- 📸 Taiwan Gear Showcase -->
-<div class="gear-images">
-  <figure>
-    <img src="https://cdn.jsdelivr.net/gh/fusionknowledge/reza-run-website/assets/1000004922_0.jpg" alt="Windbreaker and performance shirt design overview">
-    <figcaption>Windbreaker & Performance Shirt: Featuring route map, sponsor logo, and Run with Reza branding</figcaption>
-  </figure>
+      <div class="gear-images">
+        <figure>
+          <img src="https://cdn.jsdelivr.net/gh/fusionknowledge/reza-run-website/assets/1000004922_0.jpg"
+            alt="Windbreaker and performance shirt design overview">
+          <figcaption>Windbreaker & Performance Shirt: Featuring route map, sponsor logo, and Run with Reza branding
+          </figcaption>
+        </figure>
 
-  <figure>
-    <img src="https://cdn.jsdelivr.net/gh/fusionknowledge/reza-run-website/assets/1000004923_0.jpg" alt="Shorts front and back design layout">
-    <figcaption>Shorts Front & Back: Company logo on front; back shows Taiwan map with “1400km” and Run with Reza emblem</figcaption>
-  </figure>
+        <figure>
+          <img src="https://cdn.jsdelivr.net/gh/fusionknowledge/reza-run-website/assets/1000004923_0.jpg"
+            alt="Shorts front and back design layout">
+          <figcaption>Shorts Front & Back: Company logo on front; back shows Taiwan map with “1400km” and Run with Reza
+            emblem</figcaption>
+        </figure>
 
-  <figure>
-    <img src="https://cdn.jsdelivr.net/gh/fusionknowledge/reza-run-website/assets/1000004925_0.jpg" alt="Dark themed running shirts and jackets">
-    <figcaption>Black & Orange Running Gear: Unified color scheme emphasizing Taiwan loop challenge</figcaption>
-  </figure>
+        <figure>
+          <img src="https://cdn.jsdelivr.net/gh/fusionknowledge/reza-run-website/assets/1000004925_0.jpg"
+            alt="Dark themed running shirts and jackets">
+          <figcaption>Black & Orange Running Gear: Unified color scheme emphasizing Taiwan loop challenge</figcaption>
+        </figure>
 
-  <figure>
-    <img src="https://cdn.jsdelivr.net/gh/fusionknowledge/reza-run-website/assets/1000004926_0.jpg" alt="Complete gear collection overview">
-    <figcaption>Full Gear Lineup: Including shorts, shirts, windbreakers, vests, hats — visualized in final mockups</figcaption>
-  </figure>
+        <figure>
+          <img src="https://cdn.jsdelivr.net/gh/fusionknowledge/reza-run-website/assets/1000004926_0.jpg"
+            alt="Complete gear collection overview">
+          <figcaption>Full Gear Lineup: Including shorts, shirts, windbreakers, vests, hats — visualized in final
+            mockups</figcaption>
+        </figure>
 
-  <figure>
-    <img src="https://cdn.jsdelivr.net/gh/fusionknowledge/reza-run-website/assets/1000004927_0.jpg" alt="Close-up of shorts design details">
-    <figcaption>Shorts Detail View: Highlighting Run with Reza logo and Taiwan map on back panel</figcaption>
-  </figure>
-</div>
+        <figure>
+          <img src="https://cdn.jsdelivr.net/gh/fusionknowledge/reza-run-website/assets/1000004927_0.jpg"
+            alt="Close-up of shorts design details">
+          <figcaption>Shorts Detail View: Highlighting Run with Reza logo and Taiwan map on back panel</figcaption>
+        </figure>
+      </div>
 
       <p>These design elements help enhance public recognition and storytelling impact. Reza hopes the visibility from
         this event will amplify his mission and attract global support for his next phase.</p>
@@ -421,7 +441,8 @@
       <!-- 📸 裝備圖片展示區 -->
       <div class="gear-images">
         <figure>
-          <img src="https://cdn.jsdelivr.net/gh/fusionknowledge/reza-run-website/assets/1000004922_0.jpg" alt="風衣與排汗衣設計示意圖">
+          <img src="https://cdn.jsdelivr.net/gh/fusionknowledge/reza-run-website/assets/1000004922_0.jpg"
+            alt="風衣與排汗衣設計示意圖">
           <figcaption>風衣與上衣設計：包含路線地圖、企業標誌、Run with Reza 圖樣</figcaption>
         </figure>
 
@@ -431,17 +452,20 @@
         </figure>
 
         <figure>
-          <img src="https://cdn.jsdelivr.net/gh/fusionknowledge/reza-run-website/assets/1000004925_0.jpg" alt="深色上衣與風衣成品圖">
+          <img src="https://cdn.jsdelivr.net/gh/fusionknowledge/reza-run-website/assets/1000004925_0.jpg"
+            alt="深色上衣與風衣成品圖">
           <figcaption>黑色/橘色排汗衣與風衣：統一視覺風格，強調台灣環島精神</figcaption>
         </figure>
 
         <figure>
-          <img src="https://cdn.jsdelivr.net/gh/fusionknowledge/reza-run-website/assets/1000004926_0.jpg" alt="各款成衣彙整展示">
+          <img src="https://cdn.jsdelivr.net/gh/fusionknowledge/reza-run-website/assets/1000004926_0.jpg"
+            alt="各款成衣彙整展示">
           <figcaption>裝備彙整總覽：短褲、T恤、風衣、帽子、背心設計圖稿</figcaption>
         </figure>
 
         <figure>
-          <img src="https://cdn.jsdelivr.net/gh/fusionknowledge/reza-run-website/assets/1000004927_0.jpg" alt="短褲局部特寫設計">
+          <img src="https://cdn.jsdelivr.net/gh/fusionknowledge/reza-run-website/assets/1000004927_0.jpg"
+            alt="短褲局部特寫設計">
           <figcaption>短褲細節圖：Run with Reza 圖標與台灣地圖背面設計</figcaption>
         </figure>
       </div>
@@ -483,24 +507,19 @@
       <p>當人們再次質疑夢想與現實之間的距離時，或許我們可以回想起Reza那雙不斷前進的雙腳——在陸地、在海洋、在風浪與孤獨之中，持續奔向那道看似遙不可及的光。</p>
     </div>
   </section>
-  <h2 data-lang="title">Runner Journey Map</h2>
-  <p id="aboutText"></p>
-
-  <div id="map"></div>
-
-  <h2 data-lang="subTitle">📍 Run Entries</h2>
-  <div id="content"></div>
 
   <!-- 🔧 語言切換 Script -->
   <script>
     const translations = {
       en: {
         title: "Runner Journey Map",
+        maintitle: "The Daring Journey of Reza Baluchi",
         subTitle: "Run Entries",
         introTitle: "Measuring the World with His Feet: The Daring Journey of Reza Baluchi"
       },
       zh: {
         title: "跑者旅程地圖",
+        maintitle: "Reza Baluchi的瘋狂挑戰之路",
         subTitle: "跑步紀錄",
         introTitle: "用雙腳丈量世界的夢想者：Reza Baluchi的瘋狂挑戰之路"
       }
@@ -593,24 +612,6 @@
     loadData();
   </script>
 
-  <!-- 🗺️ Google Maps + Garmin KML -->
-  <script>
-    function initMap() {
-      const map = new google.maps.Map(document.getElementById("map"), {
-        center: { lat: 23.5, lng: 121 },
-        zoom: 7
-      });
-
-      const kmlLayer = new google.maps.KmlLayer({
-        url: 'https://share.garmin.com/Feed/Share/YOUR_RUNNER_NAME.kml',
-        map: map,
-        preserveViewport: true
-      });
-    }
-  </script>
-  <script async defer src="https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_MAPS_API_KEY&callback=initMap">
-  </script>
-
   <script>
     const themeToggleBtn = document.getElementById("themeToggle");
 
@@ -660,9 +661,4 @@
 
 </body>
 
-
 </html>
-
-
-
-

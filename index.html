@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title data-lang="title">Runner Journey Map</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-color: #f7f9fb;
+      --text-color: #333;
+      --card-bg: #fff;
+      --card-border: #ccc;
+      --button-bg: #fff;
+      --button-hover: #e2e8f0;
+    }
+
+    body.dark-mode {
+      --bg-color: #1e1e1e;
+      --text-color: #e0e0e0;
+      --card-bg: #2c2c2c;
+      --card-border: #444;
+      --button-bg: #333;
+      --button-hover: #444;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      margin: 0;
+      padding: 0 20px;
+      max-width: 1000px;
+      margin: auto;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+    }
+
+    h1,
+    h2 {
+      color: var(--text-color);
+      text-align: center;
+    }
+
+    #aboutText {
+      font-size: 1.1em;
+      margin: 20px 0;
+      text-align: center;
+      line-height: 1.6;
+    }
+
+    .top-bar {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+      align-items: center;
+    }
+
+    .top-bar button {
+      background-color: var(--button-bg);
+      border: 1px solid var(--card-border);
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 14px;
+      cursor: pointer;
+      transition: background 0.2s ease;
+      color: var(--text-color);
+    }
+
+    .top-bar button:hover {
+      background-color: var(--button-hover);
+    }
+
+    #map {
+      height: 400px;
+      width: 100%;
+      margin: 30px 0;
+      border-radius: 12px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .card {
+      background-color: var(--card-bg);
+      border-radius: 12px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+      padding: 16px;
+      margin-bottom: 24px;
+      border: 1px solid var(--card-border);
+      transition: transform 0.2s ease;
+    }
+
+    .card:hover {
+      transform: scale(1.01);
+    }
+
+    .card img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+      margin-bottom: 12px;
+    }
+
+    .city-name {
+      font-weight: 600;
+      font-size: 18px;
+      margin-bottom: 10px;
+      color: var(--text-color);
+    }
+
+    iframe {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      border-radius: 8px;
+      border: none;
+      margin-top: 12px;
+    }
+
+    #google_translate_element {
+      margin-top: 10px;
+      text-align: right;
+    }
+
+    @media (max-width: 600px) {
+      .top-bar {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      h1,
+      h2 {
+        font-size: 1.5em;
+      }
+
+      #map {
+        height: 300px;
+      }
+    }
+
+    .gear-images {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1em;
+      margin-top: 1em;
+    }
+
+    .gear-images figure {
+      width: 48%;
+      margin: 0;
+      text-align: center;
+    }
+
+    .gear-images img {
+      width: 100%;
+      height: auto;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .gear-images figcaption {
+      font-size: 0.9em;
+      color: #555;
+      margin-top: 0.4em;
+    }
+
+    @media (max-width: 768px) {
+      .gear-images figure {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- 🔘 語言切換 -->
+  <div class="top-bar">
+    <div class="lang-switcher">
+      <button onclick="setLanguage('en')" aria-label="Switch to English">🇺🇸 English</button>
+      <button onclick="setLanguage('zh')" aria-label="切換為中文">🇹🇼 中文</button>
+    </div>
+    <div class="theme-switcher">
+      <button id="themeToggle" aria-label="切換主題">🌓 Theme</button>
+    </div>
+  </div>
+
+  <!-- 🌍 Google 翻譯小工具 -->
+  <div id="google_translate_element"></div>
+
+  <!-- 🌟 Reza Baluchi 簡介段落（中英文切換） -->
+  <section id="rezaIntro">
+    <div data-lang="rezaIntro_en">
+      <h2>Measuring the World with His Feet: The Daring Journey of Reza Baluchi</h2>
+
+      <p>In a world of rapid change and advanced technology, tales of adventure and extreme challenges often seem like
+        the stuff of movies or novels. Yet one man—Reza Baluchi, an Iranian-born adventurer now living in the United
+        States—is proving through sheer willpower and footsteps that dreams don’t require wealth or fame, just
+        persistence and a beating heart.</p>
+
+      <p>He once attempted to cross the Atlantic Ocean from Florida to Bermuda inside a human-powered bubble. Now,
+        wearing Taiwan-customized athletic gear with the phrase "Run with Reza," he is running around the island of
+        Taiwan in 20 days with barely any sleep. And after this, his next mission: to cross the world in that same
+        bubble—one stride, one wave at a time.</p>
+
+      <h3>1. Escaping Oppression: From Iran to the United States</h3>
+      <p>Reza Baluchi's story didn’t begin with applause and blessings. Born in Iran, he grew up under a society marked
+        by political and religious repression. As a young man, he was a professional cyclist, even representing Iran in
+        competitions. However, disillusioned with the government's suppression of freedom, he eventually chose to flee.
+      </p>
+      <p>He undertook a harrowing journey across multiple borders—enduring deserts, hunger, and imprisonment—before
+        finally gaining asylum in Germany and later moving to the United States. Rather than quietly settling into a new
+        life, Reza transformed his newfound freedom into a series of audacious feats aimed at promoting peace, charity,
+        and human potential.</p>
+
+      <h3>2. The Bubble Dream: Crossing the Atlantic in a Hamster Wheel</h3>
+      <p>Reza is best known for his “Hydro Pod” adventures—his self-built, human-powered floating device resembling a
+        giant bubble. The structure allowed him to “run” on water, essentially like a floating hamster wheel.</p>
+      <p>In 2014, he first launched from Florida aiming to reach Bermuda, but was intercepted by the U.S. Coast Guard
+        due to weather conditions and lack of safety equipment. Undeterred, Reza attempted the feat multiple times in
+        the following years. In 2021, he made headlines again with another bubble voyage that was ultimately called off
+        due to storms and mechanical issues.</p>
+      <p>Although he never completed the Bermuda run, each attempt captured public attention. For Reza, these were not
+        failures but powerful acts of performance—living metaphors that challenged our understanding of what’s possible.
+      </p>
+
+      <h3>3. A New Era: 20 Days Around Taiwan, Now Streaming Live with GPS Tracking</h3>
+      <p>In the summer of 2025, Reza arrived in Taiwan to embark on his latest ultra-endurance mission—completing a full
+        1,400 km loop around the island in just 20 days, with less than three hours of sleep per night. But this time,
+        it’s not just about physical endurance—it’s also a tech-powered experience that invites the world to run with
+        him in real time.</p>
+
+      <h4>🔴 "Live on the Run" — Real-Time GPS Tracking + Global Livestreaming</h4>
+      <ul>
+        <li><strong>Real-time GPS satellite tracking:</strong> Fans can view Reza’s exact location and route
+          progression via a dedicated website or mobile app</li>
+        <li>⏱<strong>Live performance data:</strong> Including pace, total distance, weather conditions, and rest
+          points</li>
+        <li><strong>Daily livestream check-ins:</strong> Reza will go live each day to interact with fans, share
+          stories, describe physical challenges, and reflect on the journey</li>
+        <li><strong>Integrated social media broadcast:</strong> Simultaneous streaming on YouTube, Facebook, and
+          Instagram for maximum reach and engagement</li>
+      </ul>
+
+      <p>This feature transforms the event from a solo endurance test into a global participatory adventure. Reza is no
+        longer just running alone—he’s running with the eyes and support of the world behind him.</p>
+
+      <blockquote>Reza: “I want people to know I’m really out here, step by step. They can be part of it, anytime,
+        anywhere.”</blockquote>
+
+      <p>The GPS system also enables local residents in Taiwan to track his progress and meet him as he passes through
+        their towns, often bringing him food, drinks, or simply words of encouragement. The whole island becomes part of
+        the journey.</p>
+
+      <h4>✅ Marketing Value of "Live on the Run"</h4>
+      <ul>
+        <li>🔹 Combines sports technology with interactive social streaming, creating Asia’s first reality-style
+          endurance running adventure</li>
+        <li>🔹 Unlocks brand sponsorship opportunities, including live logo placements on gear and stream overlays</li>
+        <li>🔹 Boosts international media attention and public visibility, paving the way for Reza’s upcoming global
+          bubble expedition</li>
+      </ul>
+
+      <h3>Reza’s Independence and Taiwan Gear</h3>
+      <p>In the summer of 2025, Reza arrived in Taiwan for his latest test of endurance. His goal: to run a full lap
+        around the island—approximately 1,400 kilometers—in 20 days, sleeping less than three hours per night and
+        resting only along the roadside.</p>
+      <p>To mark the event, he commissioned a custom set of athletic wear designed specifically for the challenge. The
+        outfit includes shorts, shirts, and windbreakers featuring “Run with Reza” logos, a route map of Taiwan, and key
+        metrics like “1400km Taiwan Loop.”</p>
+      <p>What makes this mission even more extraordinary is his independence. Reza has no crew, no support van, and no
+        corporate sponsor. His rest stops, filming, and meals are all self-managed—or offered by friendly locals. He
+        views this Taiwan run as training, exposure, and a spiritual preparation for his next mega-dream: the bubble
+        journey around the world.</p>
+
+      <h4>■ Taiwan Gear Highlights</h4>
+      <ul>
+        <li><strong>Shorts (Front):</strong> Company logo and signature Reza circle mark</li>
+        <li><strong>Shorts (Back):</strong> Taiwan map + "Run with Reza" + 1400km text</li>
+        <li><strong>T-Shirt & Windbreaker:</strong> Unified visual identity; Taiwan map and "Run with Reza" logo on
+          the back; corporate name on front chest</li>
+        <li><strong>Layout Details:</strong> Clear size markings and position specifications, complete with
+          production blueprints and mockups</li>
+      </ul>
+
+      <p>These design elements help enhance public recognition and storytelling impact. Reza hopes the visibility from
+        this event will amplify his mission and attract global support for his next phase.</p>
+
+      <h3>4. Next: The "Around the World in a Bubble" Mission</h3>
+      <p>After completing his Taiwan run, Reza’s ultimate goal is to circle the globe in his bubble. This may sound
+        crazy—but it's exactly this level of audacity that keeps drawing attention and admiration to his work.</p>
+
+      <h4>■ Global Bubble Voyage Plan</h4>
+      <ul>
+        <li><strong>Form:</strong> Floating on oceans in a human-powered Hydro Pod</li>
+        <li><strong>Proposed Route:</strong> Americas → Europe → Africa → Asia, crossing both the Atlantic and
+          Pacific</li>
+        <li><strong>Time Estimate:</strong> Likely to span several years, depending on weather and maritime laws</li>
+        <li><strong>Key Technical Needs:</strong>
+          <ul>
+            <li>Bubble reinforced for waves, impact resistance, and stability</li>
+            <li>Must be equipped with GPS, satellite communication, and renewable power</li>
+            <li>Food, water, and emergency systems must be self-contained</li>
+          </ul>
+        </li>
+      </ul>
+
+      <blockquote>“I’m not doing this for myself. I’m doing it for those who can’t chase their dreams. I want to show
+        that with determination, even the wildest dreams can come true.”</blockquote>
+
+      <h3>5. Belief Beyond the Finish Line</h3>
+      <p>Reza Baluchi isn’t a thrill-seeker chasing headlines. Each of his challenges is rooted in humanitarian goals
+        and symbolic messages. He has fundraised for refugees, promoted peace, and advocated for children affected by
+        war.</p>
+
+      <blockquote>“My legs are how I speak to the world. When you keep moving forward, the world opens up.”</blockquote>
+
+      <p>That belief has earned him both fans and respect. He's not just a runner—he’s a messenger, an artist in motion,
+        and a defiant survivor of systems that tried to silence him.</p>
+
+      <h3>6. His Connection to Taiwan</h3>
+      <p>Reza’s choice to run in Taiwan wasn’t random. He was drawn to the island’s dynamic terrain, warm people, and
+        openness to bold ideas. He’s been touched by the hospitality—receiving free meals, words of encouragement, and
+        even resting spots offered by strangers.</p>
+      <p>He interacts with locals using a mix of basic Chinese, English, and a universal smile. His goal is to leave not
+        just a footprint around the island—but a message of unity and shared hope.</p>
+
+      <h3>7. Conclusion: Writing the Story No One Else Dared</h3>
+      <p>Reza Baluchi is not just an endurance athlete. He’s a spiritual traveler whose journey crosses oceans, islands,
+        and ideological borders. He doesn’t race to win—but to prove that belief, freedom, and resilience are stronger
+        than any obstacle.</p>
+      <p>From escaping Iran, to drifting in a bubble on the Atlantic, to running sleepless through Taiwan, and dreaming
+        of circling the Earth—Reza challenges the limits of body and mind while inspiring us to ask: what’s truly
+        impossible?</p>
+      <p>When people question the gap between dream and reality, perhaps we should remember Reza’s ever-moving feet—on
+        land, sea, and in solitude—pushing forward toward a light that no one else dared chase.</p>
+    </div>
+
+    <div data-lang="rezaIntro_zh" style="display: none;">
+      <h1>用雙腳丈量世界的夢想者：Reza Baluchi的瘋狂挑戰之路</h1>
+      <p>在這個快速變動、科技日新月異的時代，人們總以為冒險與極限挑戰的故事，只會存在於電影與小說之中。然而，有一位來自伊朗、定居美國的冒險家——Reza
+        Baluchi，用行動向世界證明：夢想可以不靠資源、不靠名聲，只靠堅持與一雙腳，就能一步一步推進世界的邊界。</p>
+      <p>他曾駕著泡泡漂浮器從美國佛羅里達出發，試圖橫渡大西洋前往百慕達群島。如今，他正穿著印有「Run with
+        Reza」標誌的台灣定製運動服，挑戰20天環島一周、幾乎無眠的壯舉，並計畫在此之後，以泡泡裝置跨越全球，寫下人類體能與意志的傳奇篇章。</p>
+      <h3>一、逃離壓迫的起點：從伊朗到美國</h3>
+      <p>Reza Baluchi的故事，並非一開始就充滿掌聲與祝福。他出生於伊朗，在政治與宗教壓力交錯的社會環境中成長。年輕時他是一名職業自行車選手，甚至代表伊朗參加比賽。然而，因不滿政府對自由的打壓，他最終選擇逃亡。</p>
+      <p>
+        為了追求自由，他冒險偷渡穿越多國邊境，歷經沙漠、飢餓與監禁，最終在德國獲得難民身分，再轉赴美國，展開新的人生。他並沒有選擇隱姓埋名過平凡生活，而是將自由的價值與對和平的理念轉化為一項項驚世壯舉，藉由運動宣揚和平、慈善與人道精神。
+      </p>
+      <h3>二、泡泡裡的壯舉：橫渡大西洋的瘋狂夢想</h3>
+      <p>Reza最廣為人知的冒險，就是他親手打造的「Hydro Pod」（俗稱泡泡）漂浮裝置。他站在一個大型透明塑膠泡泡內，內部結構設計為靠著奔跑帶動推進的浮具。簡單說，就是用「水上倉鼠輪」穿越海洋。</p>
+      <p>
+        2014年，他首次從佛羅里達出發，試圖前往百慕達，但因裝備不全與天氣惡劣，被美國海岸防衛隊強制攔截。儘管歷經挫敗，Reza並未放棄。之後幾年內他多次重返海上，最終在2021年，他再次試圖橫渡百慕達三角，結果仍因風暴與技術問題而中止行程。
+      </p>
+      <p>這些嘗試雖然都未能完成目標，但每一次都讓他在媒體與網路世界中聲名大噪。他的冒險不只是自我挑戰，更是行動藝術，傳遞著人類可以超越現實限制的信念。</p>
+      <h3>三、現在進行式：20天無眠跑遍台灣，開啟即時直播新紀元</h3>
+      <p>2025年夏季，Reza來到了台灣，展開他最新的極限挑戰——在20天內以超低睡眠（每天少於3小時）完成全長約1400公里的環台奔跑壯舉。但與以往不同的是，這次不只是體能上的挑戰，更是一場科技與意志力結合的跨時代活動。
+      </p>
+      <h3>🔴 GPS即時追蹤 + 線上直播：「Live on the Run」計畫上線！</h3>
+      <p>為了讓全球粉絲與媒體能即時關注這趟壯舉，他首度引入了「Live on the Run」技術平台，整合下列功能：</p>
+      <ul>
+        <li><strong>全程GPS衛星定位系統：</strong> 民眾可透過專屬網站或App即時查看Reza目前所在位置與移動軌跡</li>
+        <li><strong>即時動態更新：</strong> 包含配速、里程、氣溫、補給點資訊</li>
+        <li><strong>直播互動介面：</strong> 每日開啟一段直播時段，讓Reza直接與粉絲互動、分享身體狀況、路邊趣事或心路歷程</li>
+        <li><strong>社群整合：</strong> 可於 YouTube、Facebook、Instagram 進行同步播送，吸引更多國際關注</li>
+      </ul>
+      <p>這不僅大幅提高了活動的透明度與參與感，也讓Reza的理念能夠更即時地觸及世界各地的觀眾。他不再是孤獨在路上的旅人，而是一位帶著千萬雙眼睛的行動者。</p>
+      <blockquote>Reza：「我想讓人們知道，我每一步都真實存在，他們可以隨時加入這趟旅程。」</blockquote>
+      <p>這項技術也讓台灣民眾更容易在沿線迎接Reza，許多人在GPS上看到他即將經過自家社區時，主動準備水、食物與加油打氣，形成一場島嶼規模的共同參與式冒險。</p>
+      <ul>
+        <li>結合智慧運動科技與社群直播互動，打造亞洲首次實境極限跑步冒險節目</li>
+        <li>吸引品牌贊助機會：可於直播畫面露出品牌標誌與Reza所穿裝備</li>
+        <li>提升國際媒體關注度與公益能見度，有助於為後續泡泡環球之旅鋪路</li>
+      </ul>
+
+      <h3>Reza 2025 台灣環島挑戰與專屬裝備</h3>
+      <p>2025年夏季，Reza來到了台灣。他的計畫，是在20天內跑完台灣環島一圈（約1400公里），幾乎每天只睡不到3小時，沿路靠街邊休息與能量補給持續前進。</p>
+      <p>為這次挑戰，他特別製作了一套專屬服裝與運動裝備，包括短褲、排汗衫、防風外套等，全部印有「Run with Reza」、「台灣一圈接力 1400km」等圖樣，背後並附上台灣地圖與行經縣市標示，象徵這趟意志之旅。</p>
+      <p>他沒有隨行團隊，沒有贊助車，沿路休息、拍攝與補給全靠當地熱情民眾與他自己隨身攜帶的簡單物資。他將這趟挑戰視為訓練與媒體曝光的起點，準備迎接更浩大的「泡泡環球壯舉」。</p>
+
+      <h4>■ 台灣環島特色裝備（來自圖示資料）</h4>
+      <ul>
+        <li><strong>短褲正面：</strong> 印有企業標誌、Reza標誌圖章</li>
+        <li><strong>短褲背面：</strong> 台灣地圖 + Run with Reza + 1400km 字樣</li>
+        <li><strong>T恤與風衣：</strong> 整體視覺統一，強調環島路線，左胸企業標示、背面台灣地圖與 Reza 頭像</li>
+        <li><strong>尺寸與排版：</strong> 清楚標示尺寸與位置，具有完整設計稿與成品圖</li>
+      </ul>
+
+      <!-- 📸 裝備圖片展示區 -->
+      <div class="gear-images">
+        <figure>
+          <img src="/mnt/data/1000004922_0.jpg" alt="風衣與排汗衣設計示意圖">
+          <figcaption>風衣與上衣設計：包含路線地圖、企業標誌、Run with Reza 圖樣</figcaption>
+        </figure>
+
+        <figure>
+          <img src="/mnt/data/1000004923_0.jpg" alt="短褲正反面展示">
+          <figcaption>短褲正面與背面：右側企業標誌，背面有台灣地圖與 1400km 標示</figcaption>
+        </figure>
+
+        <figure>
+          <img src="/mnt/data/1000004925_0.jpg" alt="深色上衣與風衣成品圖">
+          <figcaption>黑色/橘色排汗衣與風衣：統一視覺風格，強調台灣環島精神</figcaption>
+        </figure>
+
+        <figure>
+          <img src="/mnt/data/1000004926_0.jpg" alt="各款成衣彙整展示">
+          <figcaption>裝備彙整總覽：短褲、T恤、風衣、帽子、背心設計圖稿</figcaption>
+        </figure>
+
+        <figure>
+          <img src="/mnt/data/1000004927_0.jpg" alt="短褲局部特寫設計">
+          <figcaption>短褲細節圖：Run with Reza 圖標與台灣地圖背面設計</figcaption>
+        </figure>
+      </div>
+
+      <p>這樣的視覺設計不僅有助於民眾辨識，也有宣傳意義。他期望透過「行走台灣」的過程與媒體曝光，進一步讓世界看見他的理念與下一步冒險計畫。</p>
+      <h3>四、下一站：泡泡環球壯舉</h3>
+      <p>完成台灣環島挑戰後，Reza的最終夢想是：「用Hydro Pod環繞世界」。這聽起來近乎瘋狂——但正是這股近乎不可能的夢，讓他持續受到關注與鼓舞。</p>
+
+      <h4>■ 環球泡泡計畫概述：</h4>
+      <ul>
+        <li><strong>形式：</strong> 穿著強化泡泡裝置，依循海流與奔跑前進</li>
+        <li><strong>預期路線：</strong> 美洲 → 歐洲 → 非洲 → 亞洲，跨越太平洋與大西洋</li>
+        <li><strong>時間預估：</strong> 可能歷時數年，須根據氣候與國際水域規範調整</li>
+        <li><strong>技術挑戰：</strong>
+          <ul>
+            <li>泡泡裝置需強化防風浪、防撞擊與自動定位</li>
+            <li>裝備內須有 GPS、衛星通訊與能源回收系統</li>
+            <li>食物、水、緊急求救設備須完善</li>
+          </ul>
+        </li>
+      </ul>
+
+      <blockquote>Reza：「我不是為了自己，而是為了那些無法追夢的人。我想證明：只要有決心，再瘋狂的夢都可以實現。」</blockquote>
+
+      <h3>五、挑戰者背後的信念</h3>
+      <p>Reza並不是尋求名利的冒險家。他的每一步都帶有強烈的社會目的與精神象徵。他曾在挑戰中為難民募款、為戰火地區的兒童發聲、為和平奔跑。</p>
+      <p>他深信體能是與世界連結的語言。他說過：</p>
+      <blockquote>「我的雙腳是我與世界對話的工具。當你不斷往前跑時，世界也會向你敞開。」</blockquote>
+      <p>這樣的信念讓他贏得眾多支持者，也讓他的挑戰多了份溫暖與深度。他是一個旅人、藝術家、活動家、也是一位不屈的生命實踐者。</p>
+
+      <h3>六、對台灣的情感</h3>
+      <p>Reza選擇台灣作為這次挑戰地點，不僅因為地形多樣、挑戰性高，也因為他對台灣的文化氛圍與人民友善印象深刻。</p>
+      <p>在社群媒體與街頭互動中，他用簡單的中文、英文與微笑，與沿途支持者交流。他在路上收到便當、飲水與鼓勵話語，這些都讓他更堅信：</p>
+      <blockquote>「這趟旅程不只是我的，也是台灣人民的。」</blockquote>
+
+      <h3>七、結語：以腳為筆，寫下無人敢想的故事</h3>
+      <p>Reza Baluchi是一位極限挑戰者，也是一位靈魂旅人。他的旅程橫跨大洋、島嶼與制度的邊界，不為戰勝，而是為了實踐一種信念：夢想不是屬於特權階層，它屬於每一個勇敢踏出第一步的人。</p>
+      <p>從伊朗逃亡，到百慕達泡泡漂流，從台灣無眠環島，到未來環球計畫，他一次次跨越人類的身心極限，也喚醒世人對「自由」、「勇氣」與「人性韌性」的深刻思考。</p>
+      <p>當人們再次質疑夢想與現實之間的距離時，或許我們可以回想起Reza那雙不斷前進的雙腳——在陸地、在海洋、在風浪與孤獨之中，持續奔向那道看似遙不可及的光。</p>
+    </div>
+  </section>
+  <h2 data-lang="title">Runner Journey Map</h2>
+  <p id="aboutText"></p>
+
+  <div id="map"></div>
+
+  <h2 data-lang="subTitle">📍 Run Entries</h2>
+  <div id="content"></div>
+
+  <!-- 🔧 語言切換 Script -->
+  <script>
+    const translations = {
+      en: {
+        title: "Runner Journey Map",
+        subTitle: "Run Entries",
+        introTitle: "Measuring the World with His Feet: The Daring Journey of Reza Baluchi"
+      },
+      zh: {
+        title: "跑者旅程地圖",
+        subTitle: "跑步紀錄",
+        introTitle: "用雙腳丈量世界的夢想者：Reza Baluchi的瘋狂挑戰之路"
+      }
+    };
+
+    function setLanguage(lang) {
+      // 切換所有 [data-lang] 標籤
+      document.querySelectorAll('[data-lang]').forEach(el => {
+        const key = el.getAttribute('data-lang');
+
+        // 多語段落（rezaIntro）
+        if (key === `rezaIntro_${lang}`) {
+          el.style.display = '';
+        } else if (key.startsWith('rezaIntro_')) {
+          el.style.display = 'none';
+        }
+
+        // 靜態文字替換（h1、h2 標題）
+        else if (translations[lang] && translations[lang][key]) {
+          el.textContent = translations[lang][key];
+        }
+      });
+    }
+
+    setLanguage('en');
+  </script>
+
+  <!-- 📖 Google 翻譯小工具 -->
+  <script type="text/javascript">
+    function googleTranslateElementInit() {
+      new google.translate.TranslateElement({
+        pageLanguage: 'en',
+        includedLanguages: 'en,zh-TW',
+        layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+      }, 'google_translate_element');
+    }
+  </script>
+  <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+  <!-- 🔧 Firebase Firestore + 內容載入 -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { getFirestore, collection, getDocs, query, orderBy, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "YOUR_API_KEY",
+      authDomain: "YOUR_PROJECT.firebaseapp.com",
+      projectId: "YOUR_PROJECT",
+      storageBucket: "YOUR_PROJECT.appspot.com",
+      messagingSenderId: "XXXXXX",
+      appId: "APP_ID"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    async function loadAbout() {
+      const aboutRef = doc(db, "info", "about");
+      const aboutSnap = await getDoc(aboutRef);
+      if (aboutSnap.exists()) {
+        document.getElementById("aboutText").textContent = aboutSnap.data().content;
+      }
+    }
+
+    async function loadData() {
+      const q = query(collection(db, "runs"), orderBy("createdAt", "desc"));
+      const snapshot = await getDocs(q);
+      const contentDiv = document.getElementById("content");
+
+      snapshot.forEach(doc => {
+        const data = doc.data();
+        const card = document.createElement("div");
+        card.className = "card";
+        card.innerHTML = `
+          <div class="city-name">${data.city}</div>
+          <img src="${data.imageUrl}" alt="Run image">
+          <p>${data.desc}</p>
+          ${data.youtube ? `<iframe src="https://www.youtube.com/embed/${extractYouTubeID(data.youtube)}" allowfullscreen></iframe>` : ""}
+        `;
+        contentDiv.appendChild(card);
+      });
+    }
+
+    function extractYouTubeID(url) {
+      const match = url.match(/(?:v=|be\/)([A-Za-z0-9_-]{11})/);
+      return match ? match[1] : "";
+    }
+
+    loadAbout();
+    loadData();
+  </script>
+
+  <!-- 🗺️ Google Maps + Garmin KML -->
+  <script>
+    function initMap() {
+      const map = new google.maps.Map(document.getElementById("map"), {
+        center: { lat: 23.5, lng: 121 },
+        zoom: 7
+      });
+
+      const kmlLayer = new google.maps.KmlLayer({
+        url: 'https://share.garmin.com/Feed/Share/YOUR_RUNNER_NAME.kml',
+        map: map,
+        preserveViewport: true
+      });
+    }
+  </script>
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_MAPS_API_KEY&callback=initMap">
+  </script>
+
+  <script>
+    const themeToggleBtn = document.getElementById("themeToggle");
+
+    function applyTheme(mode) {
+      document.body.classList.remove("light-mode", "dark-mode");
+      if (mode === "dark") {
+        document.body.classList.add("dark-mode");
+      } else if (mode === "light") {
+        document.body.classList.add("light-mode");
+      }
+    }
+
+    function detectSystemTheme() {
+      return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+    }
+
+    function loadTheme() {
+      const saved = localStorage.getItem("theme");
+      const mode = saved || "auto";
+      const toApply = (mode === "auto") ? detectSystemTheme() : mode;
+      applyTheme(toApply);
+      updateThemeButton(mode);
+    }
+
+    function updateThemeButton(mode) {
+      themeToggleBtn.textContent =
+        mode === "dark" ? "🌙 Dark" :
+          mode === "light" ? "🌞 Light" : "🌓 Auto";
+    }
+
+    themeToggleBtn.addEventListener("click", () => {
+      const current = localStorage.getItem("theme") || "auto";
+      let next = current === "dark" ? "light" :
+        current === "light" ? "auto" : "dark";
+
+      if (next === "auto") {
+        localStorage.removeItem("theme");
+      } else {
+        localStorage.setItem("theme", next);
+      }
+
+      loadTheme();
+    });
+
+    loadTheme(); // 初始化
+  </script>
+
+</body>
+
+</html>
